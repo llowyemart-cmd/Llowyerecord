@@ -15,6 +15,33 @@
     align-items:center;
     justify-content:center;
     padding:40px 16px;
+    position:relative;
+    overflow:hidden;
+  }
+  body::before, body::after{
+    content:'';
+    position:fixed;
+    width:340px;
+    height:340px;
+    border-radius:50%;
+    filter:blur(90px);
+    z-index:0;
+  }
+  body::before{
+    background:#b8c65a;
+    top:-80px;
+    left:-80px;
+    opacity:0.35;
+  }
+  body::after{
+    background:#5a7ab8;
+    bottom:-100px;
+    right:-80px;
+    opacity:0.3;
+  }
+  h1, .player-card{
+    position:relative;
+    z-index:1;
   }
   h1{
     color:#f5f5f7;
