@@ -300,11 +300,6 @@
               </button>
             </div>
 
-            <div class="volume-row">
-              <span>🔈</span>
-              <input type="range" id="volume" min="0" max="100" value="70">
-              <span>🔊</span>
-            </div>
           </div>
         </div>
       </div>
@@ -335,7 +330,7 @@
             <ol class="song-list">
               <li>Membasuh (feat. Rara Sekar) — Hindia</li>
               <li>About You — The 1975</li>
-              <li>GOT MY NUMBER — MONSTA X</li>
+              <li>Got My Number — MONSTA X</li>
             </ol>
             <a class="open-btn" href="https://burn-cd.vercel.app/cd/MTQ4MTgwNDU4MSwxODUwMDE5MDM4LDE0OTAxODM0MDI" target="_blank" rel="noopener">OPEN</a>
           </div>
@@ -427,7 +422,6 @@
   const playIcon = document.getElementById('playIcon');
   const prevBtn = document.getElementById('prevBtn');
   const seek = document.getElementById('seek');
-  const volume = document.getElementById('volume');
   const curTimeEl = document.getElementById('curTime');
   const totalTimeEl = document.getElementById('totalTime');
 
@@ -444,7 +438,7 @@
   function onYouTubeIframeAPIReady(){
     player = new YT.Player('ytPlayer', {
       height:'1', width:'1', videoId: VIDEO_ID,
-      playerVars:{ controls:0, disablekb:1, modestbranding:1, rel:0 },
+      playerVars:{ controls:0, disablekb:1, modestbranding:1, rel:0, start:15 },
       events:{ onReady:onPlayerReady, onStateChange:onPlayerStateChange }
     });
   }
@@ -487,8 +481,6 @@
     player.seekTo(target, true);
     isSeeking = false;
   });
-
-  volume.addEventListener('input', () => { if (isReady) player.setVolume(volume.value); });
 
   function updateLoop(){
     if (isReady && !isSeeking){
