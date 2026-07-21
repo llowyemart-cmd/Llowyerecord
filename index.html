@@ -219,9 +219,7 @@
   }
   .info-card .cover{
     width:100%;
-    height:190px;
-    object-fit:contain;
-    background:rgba(255,255,255,0.03);
+    height:auto;
     display:block;
     pointer-events:none;
     -webkit-user-drag:none;
@@ -251,9 +249,14 @@
     font-weight:800;
     font-size:0.9rem;
     text-decoration:none;
-    transition:background 0.2s ease;
+    box-shadow:0 4px 0 #e07aa8;
+    transition:transform 0.08s ease, box-shadow 0.08s ease, background 0.2s ease;
   }
   .open-btn:hover{ background:#ff7fb8; }
+  .open-btn:active{
+    transform:translateY(4px);
+    box-shadow:0 0px 0 #e07aa8;
+  }
  
 </style>
 </head>
@@ -494,6 +497,23 @@
     }
     requestAnimationFrame(updateLoop);
   }
+ // bunyi klik pas tombol Open dipencet
+  function playClickSound(){
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = 800;
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.08);
+  }
+  document.querySelectorAll('.open-btn').forEach(btn => {
+    btn.addEventListener('click', playClickSound);
+  });
 </script>
 
 </body>
